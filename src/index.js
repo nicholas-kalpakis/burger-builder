@@ -7,10 +7,11 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import burgerBuilderReducer from './store/reducers/burgerBuilder'
 import orderReducer from './store/reducers/order';
+import authReducer from './store/reducers/auth';
 import thunk from 'redux-thunk';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { firebaseReducer, getFirebase, ReactReduxFireBaseProvider } from 'react-redux-firebase';
+import { firebaseReducer } from 'react-redux-firebase';
 
 const fbConfig = {
 	apiKey: "AIzaSyDFBgRyT_iL0dvCIrAJI7poXpcFHZy0BLc",
@@ -31,6 +32,7 @@ const rrfConfig = {
 const rootReducer = combineReducers({
 	burgerBuilderReducer: burgerBuilderReducer,
 	orderReducer: orderReducer,
+	authReducer: authReducer,
 	firebase: firebaseReducer
 });
 

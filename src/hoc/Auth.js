@@ -5,10 +5,12 @@ export const AuthContext = React.createContext();
 
 
 export const AuthProvider = ({children}) => {
-	const [currentUser, setCurentUser] =useState(null);
+	const [currentUser, setCurentUser] = useState(null);
 
 	useEffect(() => {
-		firebaseApp.auth().onAuthStateChanged(setCurentUser);
+		firebaseApp.auth().onAuthStateChanged((user) => {
+			console.log('auth state changed');
+		});
 	}, []);
 
 	return (

@@ -1,18 +1,35 @@
-import * as acitonTypes from '../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
-initialState = {
-
+const initialState = {
+	user: null,
+	redirectToHome: false
 }
 
-const reducuer = (state = initialState, action) => {
-
-	switch(action) {
-		case(acitonTypes.INIT_SIGN_UP):
+const auth = (state = initialState, action) => {
+	switch(action.type) {
+		case(actionTypes.SIGN_IN):
+			return {
+				...state,
+				user: action.user
+			}
+		case(actionTypes.SIGN_OUT):
+			return {
+				...state,
+				user: null,
+				redirectToHome: false
+			}
+		case(actionTypes.INIT_REDIRECT_TO_HOME): {
+			return {
+				...state,
+				redirectToHome: true
+			}
+		}
+		default: {
 			return {
 				...state
-			};
-		default: {
-
+			}
 		}
 	}
 }
+
+export default auth

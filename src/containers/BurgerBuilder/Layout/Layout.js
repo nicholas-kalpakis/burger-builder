@@ -23,7 +23,7 @@ class Layout extends Component {
 
 		return (
 			<Aux>
-				<Toolbar toggleSideNav={this.sideDrawerToggleHandler}/>
+				<Toolbar user={this.props.user} toggleSideNav={this.sideDrawerToggleHandler}/>
 				<SideDrawer isOpen={this.state.showSideDrawer}  close={this.sideDrawerClosedHandler}/>
 				<main className={classes.Content}>
 					{this.props.children}

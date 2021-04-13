@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import Input from '../../components/UI/Input/Input';
-import classes from './Auth.module.css';
-import { firebaseApp } from '../../firebase';
-import SignUp from './SignUp/SignUp';
-import SignIn from './SignIn/SignIn';
+import React, {Component} from 'react'
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
+import classes from './SignIn.module.css';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-class Auth extends Component {
+import * as authActions from '../../../store/actions/index';
+
+class SignIn extends Component {
 
 	state = {
 		controls: {
@@ -40,7 +39,6 @@ class Auth extends Component {
 		}
 	}
 
-
 	isInputValid = (formElementRules, value) => {
 		if(formElementRules.required === true && value.trim() === '') {
 			return false
@@ -61,21 +59,19 @@ class Auth extends Component {
 		this.setState({controls: updatedControls})
 	}
 
-	signUpClickHandler = async (e) => {
+	signInClickListener = async (e) => {
 		e.preventDefault();
-		const email = this.state.controls.email.value
-		const password = this.state.controls.password.value
 
-		try {
-			await firebaseApp.auth().createUserWithEmailAndPassword(email,password);
-			this.props.history.push('/');
-		} catch (err) {
-			console.log(err)
+		if(!this.props.user?.user?.email) {
+			const email = this.state.controls.email.value
+			const password = this.state.controls.password.value
+
+			this.props.signIn(email,password);
 		}
+		console.log('error: already signed in');
 	}
 
 	render () {
-	
 		const formElementsArray = [];
 		for (let key in this.state.controls) {
 			formElementsArray.push({
@@ -87,22 +83,27 @@ class Auth extends Component {
 		const form = formElementsArray.map((formElement) => (
 			<Input key={formElement.id} valid={formElement.config.valid} inputtype={formElement.config.elementType} value={formElement.config.value} elementConfig={formElement.config.elementConfig} changed={(event) => {this.inputChangedHandler(event, formElement.id)}}></Input>
 		))
-		return ( 
-				this.props.userJustSignedIn ? <Redirect to="/"/> : 
-					(
-						<div className={classes.Auth}>
-							<SignUp history={this.props.history}/>
-							<SignIn history={this.props.history}/>
-						</div>
-					) 
+
+		return (
+			<div className={classes.SignIn}>
+				<h1>Sign In</h1>
+				<form>
+				 {form}
+				 <Button clicked={this.signInClickListener}btnType="Success">Submit</Button>
+				</form>
+			</div>
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		userJustSignedIn: state.authReducer.redirectToHome
+		user: state.authReducer.user
+	};
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signIn: (email, password) => dispatch(authActions.signIn(email, password))
 	}
 }
-
-export default connect(mapStateToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import Input from '../../components/UI/Input/Input';
-import classes from './Auth.module.css';
-import { firebaseApp } from '../../firebase';
-import SignUp from './SignUp/SignUp';
-import SignIn from './SignIn/SignIn';
+import React, {Component} from 'react'
+import { firebaseApp } from '../../../firebase';
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
+import classes from './SignUp.module.css';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-class Auth extends Component {
+class SignUp extends Component {
 
 	state = {
 		controls: {
@@ -75,7 +73,6 @@ class Auth extends Component {
 	}
 
 	render () {
-	
 		const formElementsArray = [];
 		for (let key in this.state.controls) {
 			formElementsArray.push({
@@ -87,22 +84,27 @@ class Auth extends Component {
 		const form = formElementsArray.map((formElement) => (
 			<Input key={formElement.id} valid={formElement.config.valid} inputtype={formElement.config.elementType} value={formElement.config.value} elementConfig={formElement.config.elementConfig} changed={(event) => {this.inputChangedHandler(event, formElement.id)}}></Input>
 		))
-		return ( 
-				this.props.userJustSignedIn ? <Redirect to="/"/> : 
-					(
-						<div className={classes.Auth}>
-							<SignUp history={this.props.history}/>
-							<SignIn history={this.props.history}/>
-						</div>
-					) 
+		return (
+			<div className={classes.SignUp}>
+				<h1>Create New Account</h1>
+				<form>
+				 {form}
+				 <Button clicked={this.signUpClickHandler}btnType="Success">Submit</Button>
+				</form>
+			</div>
 		)
 	}
 }
 
+
 const mapStateToProps = (state) => {
 	return {
-		userJustSignedIn: state.authReducer.redirectToHome
+
+	};
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		
 	}
 }
-
-export default connect(mapStateToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
