@@ -9,7 +9,7 @@ import burgerBuilderReducer from './store/reducers/burgerBuilder'
 import orderReducer from './store/reducers/order';
 import authReducer from './store/reducers/auth';
 import thunk from 'redux-thunk';
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 import 'firebase/auth';
 import { firebaseReducer } from 'react-redux-firebase';
 
@@ -24,9 +24,9 @@ import { firebaseReducer } from 'react-redux-firebase';
 // 	measurementId: "G-831VFGERWQ"
 // };
 
-const rrfConfig = {
-	userProfile: 'users'
-}
+// const rrfConfig = {
+// 	userProfile: 'users'
+// }
 
 
 const rootReducer = combineReducers({

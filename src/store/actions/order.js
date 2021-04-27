@@ -47,11 +47,11 @@ const fetchOrdersError = (error) => {
 	}
 }
 
-const fetchOrdersLoading = () => {
-	return {
-		type: actionTypes.FETCH_ORDERS_LOADING
-	}
-}
+// const fetchOrdersLoading = () => {
+// 	return {
+// 		type: actionTypes.FETCH_ORDERS_LOADING
+// 	}
+// }
 
 export const fetchOrders = () => {
 	return dispatch => {

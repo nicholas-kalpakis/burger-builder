@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from '../../components/UI/Input/Input';
+// import Input from '../../components/UI/Input/Input';
 import classes from './Auth.module.css';
 import { firebaseApp } from '../../firebase';
 import SignUp from './SignUp/SignUp';
