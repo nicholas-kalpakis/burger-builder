@@ -84,9 +84,9 @@ class Auth extends Component {
 			})
 		}
 
-		const form = formElementsArray.map((formElement) => (
-			<Input key={formElement.id} valid={formElement.config.valid} inputtype={formElement.config.elementType} value={formElement.config.value} elementConfig={formElement.config.elementConfig} changed={(event) => {this.inputChangedHandler(event, formElement.id)}}></Input>
-		))
+		// const form = formElementsArray.map((formElement) => (
+		// 	<Input key={formElement.id} valid={formElement.config.valid} inputtype={formElement.config.elementType} value={formElement.config.value} elementConfig={formElement.config.elementConfig} changed={(event) => {this.inputChangedHandler(event, formElement.id)}}></Input>
+		// ))
 		return ( 
 				this.props.userJustSignedIn ? <Redirect to="/"/> : 
 					(
